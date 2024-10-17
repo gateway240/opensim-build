@@ -36,6 +36,7 @@ chmod 755 Apache-NetBeans-12.3-bin-linux-x64.sh
 
 ## Ubuntu Platform Dependencies
 For now follow opensim build instructions 1
+
 // TODO
 
 ## Building on any Unix-Based Distribution (Ubuntu, Arch, Mac, NOT Windows)
@@ -44,7 +45,9 @@ For now follow opensim build instructions 1
 
 2. Build opensim-core by running `build-core.sh`. Add `-n` flag if you have and want to use Ninja instead of Makefiles
 
-3. On first install you will need to add opensim-core to your path. This script will add opensim-core to your path:
+3. On first install you will need to add opensim-core to your path or symlink it to somewhere already on the path.
+Note that this script will ask for sudo so it is a good idea to inspect it's contents before running.
+This script will symlink opensim-core to `usr/local/bin` which should be on your path:
 ```bash
 ~/opensim-core/bin/opensim-install-command-line.sh
 ```
