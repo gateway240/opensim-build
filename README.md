@@ -1,5 +1,7 @@
 # opensim-build
 
+## Opensim Core & Gui Build
+
 Building from the source code
 -----------------------------
 
@@ -53,6 +55,18 @@ This script will symlink opensim-core to `usr/local/bin` which should be on your
 ```
 
 4. Optionally build the gui with `build-gui.sh` (you will need to build the core with java bindings)
+
+
+# Simbody build
+
+1. Install platform dependencies (the opensim dependencies include all of these)
+
+- cross-platform building: CMake 3.12 or later.
+- compiler: Visual Studio 2015, 2017, or 2019 (Windows only), gcc 4.9.0 or later (typically on Linux), Clang 3.4 or later, or Apple Clang (Xcode) 8 or later.
+- linear algebra: LAPACK 3.6.0 or later and BLAS
+- visualization (optional): FreeGLUT, Xi and Xmu
+
+2. Build simbody by running `build-simbody.sh`. Add `-n` flag if you have and want to use Ninja instead of Makefiles
 
 
 # Reference OpenSim Documentation
