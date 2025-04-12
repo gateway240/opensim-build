@@ -24,8 +24,13 @@ sudo pacman -S base-devel cmake autoconf pkg-config automake blas lapack freeglu
 
 ```bash 
 sudo pacman -U https://archive.archlinux.org/packages/s/swig/swig-4.1.1-2-x86_64.pkg.tar.zst
+sudo pacman -U https://archive.archlinux.org/packages/d/distrobox/distrobox-1.7.2.1-1-any.pkg.tar.zst
 ```
 
+Install cmake3!
+```bash
+sudo pacman -U https://archive.archlinux.org/packages/c/cmake/cmake-3.31.5-1-x86_64.pkg.tar.zst
+```
 > NOTE: If you run `sudo pacman -Syu` it will update the SWIG version so you'll have to run the command again to revert to the older version
 
 3. Install Netbeans 12.3
