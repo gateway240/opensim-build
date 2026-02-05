@@ -5,6 +5,7 @@ set -e
 
 # Default values for flags.
 DEBUG_TYPE="RelWithDebInfo"
+# DEBUG_TYPE="Debug"
 NUM_JOBS=$(nproc)
 MOCO="on"
 CORE_BRANCH="master"
@@ -66,13 +67,13 @@ echo "OS="$OS_NAME
 echo ""
 
 # Get simbody
-echo "LOG: CLONING SIMBODY..."
-git -C ~/opensim-workspace/simbody-source pull ||
-git clone git@github.com:gateway240/simbody.git ~/opensim-workspace/simbody-source
-cd ~/opensim-workspace/simbody-source
-# Ignore the git checkout error if you can't check something out
-git checkout $CORE_BRANCH || true
-echo
+# echo "LOG: CLONING SIMBODY..."
+# git -C ~/opensim-workspace/simbody-source pull ||
+# git clone git@github.com:gateway240/simbody.git ~/opensim-workspace/simbody-source
+# cd ~/opensim-workspace/simbody-source
+# # Ignore the git checkout error if you can't check something out
+# # git checkout $CORE_BRANCH || true
+# echo
 
 
 # Build simbody
@@ -82,7 +83,9 @@ cd ~/opensim-workspace/simbody-build
 cmake ~/opensim-workspace/simbody-source \
   -G"$GENERATOR" \
   \
+  --preset=default \
   -DCMAKE_INSTALL_PREFIX=~/simbody \
+  -DBUILD_VISUALIZER=off \
   -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
   -DCMAKE_BUILD_TYPE=$DEBUG_TYPE
 cmake . -LAH

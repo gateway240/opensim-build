@@ -13,6 +13,10 @@ do so *may* result in mysterious runtime errors like
 segfaults.
 
 
+simbody
+cmake . --preset=default -DSIMBODY_BUILD_SHARED_LIBS=off
+cmake --build --preset=default -DBUILD_TESTING=true -DCMAKE_EXPORT_COMPILE_COMMANDS=on -j22
+
 ## Arch Linux Platform Dependencies
 
 1. Install platform specific dependencies from pacman
@@ -33,6 +37,20 @@ sudo pacman -U https://archive.archlinux.org/packages/c/cmake/cmake-3.31.5-1-x86
 ```
 > NOTE: If you run `sudo pacman -Syu` it will update the SWIG version so you'll have to run the command again to revert to the older version
 
+Install old java
+```bash
+sudo pacman -U https://archive.archlinux.org/packages/j/jre8-openjdk-headless/jre8-openjdk-headless-8.452.u09-1-x86_64.pkg.tar.zst
+sudo pacman -U https://archive.archlinux.org/packages/j/jre8-openjdk/jre8-openjdk-8.452.u09-1-x86_64.pkg.tar.zst
+sudo pacman -U https://archive.archlinux.org/packages/j/jdk8-openjdk/jdk8-openjdk-8.452.u09-1-x86_64.pkg.tar.zst
+```
+```bash
+VERSION=8.452.u09-1
+VERSION=8.442.u06-1
+sudo pacman -U \
+  https://archive.archlinux.org/packages/j/jre8-openjdk-headless/jre8-openjdk-headless-${VERSION}-x86_64.pkg.tar.zst \
+  https://archive.archlinux.org/packages/j/jre8-openjdk/jre8-openjdk-${VERSION}-x86_64.pkg.tar.zst \
+  https://archive.archlinux.org/packages/j/jdk8-openjdk/jdk8-openjdk-${VERSION}-x86_64.pkg.tar.zst
+```
 3. Install Netbeans 12.3
 ```bash 
 mkdir -p ~/opensim-workspace/Netbeans12.3 || true && cd ~/opensim-workspace/Netbeans12.3

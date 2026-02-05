@@ -6,7 +6,7 @@ set -e
 # Default values for flags.
 DEBUG_TYPE="Release"
 NUM_JOBS=$(nproc)
-MOCO="on"
+MOCO="off"
 CORE_BRANCH="main"
 GENERATOR="Unix Makefiles"
 
@@ -67,15 +67,16 @@ echo ""
 
 # Get opensim-core.
 echo "LOG: CLONING OPENSIM-CORE..."
-git -C ~/opensim-workspace/opensim-core-source pull ||
-  git clone https://github.com/opensim-org/opensim-core.git ~/opensim-workspace/opensim-core-source
-cd ~/opensim-workspace/opensim-core-source
+# git -C ~/opensim-workspace/opensim-core-source pull ||
+#  git clone https://github.com/opensim-org/opensim-core.git ~/opensim-workspace/opensim-core-source
+# cd ~/opensim-workspace/opensim-core-source
 # Ignore the git checkout error if you can't check something out
-git checkout $CORE_BRANCH || true
+# git checkout $CORE_BRANCH || true
 echo
 
 # Build opensim-core dependencies.
 echo "LOG: BUILDING OPENSIM-CORE DEPENDENCIES..."
+
 mkdir -p ~/opensim-workspace/opensim-core-dependencies-build || true
 cd ~/opensim-workspace/opensim-core-dependencies-build
 cmake ~/opensim-workspace/opensim-core-source/dependencies \
@@ -85,7 +86,8 @@ cmake ~/opensim-workspace/opensim-core-source/dependencies \
   -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
   -DSUPERBUILD_ezc3d=on \
   -DOPENSIM_WITH_CASADI=$MOCO \
-  -DOPENSIM_WITH_TROPTER=$MOCO # --graphviz=deps.dot \
+  -DOPENSIM_PYTHON_STANDALONE=ON 
+   # --graphviz=deps.dot \
 # -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
 
 cmake . -LAH
@@ -96,27 +98,35 @@ echo
 echo "LOG: BUILDING OPENSIM-CORE..."
 mkdir -p ~/opensim-workspace/opensim-core-build || true
 cd ~/opensim-workspace/opensim-core-build
+# CC="clang" CXX="clang++"
 cmake ~/opensim-workspace/opensim-core-source \
   -G"$GENERATOR" \
-  -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
+  \
   -DOPENSIM_DEPENDENCIES_DIR=~/opensim-workspace/opensim-core-dependencies-install/ \
   -DBUILD_JAVA_WRAPPING=off \
-  -DBUILD_PYTHON_WRAPPING=off \
+  -DBUILD_PYTHON_WRAPPING=on \
+  -DOPENSIM_PYTHON_STANDALONE=ON \
+  -DBUILD_PYTHON_WHEELS=on \
   -DBUILD_EXAMPLES=off \
   -DBUILD_TESTING=off \
   -DOPENSIM_C3D_PARSER=ezc3d \
   -DCMAKE_INSTALL_PREFIX=~/opensim-core \
   -DOPENSIM_INSTALL_UNIX_FHS=off \
   -DSWIG_DIR=/usr/bin/swig \
-  -DSWIG_EXECUTABLE=/usr/bin/swig
-  # --graphviz=deps.dot -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
+  -DSWIG_EXECUTABLE=/usr/bin/swig \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=on \
+  -DOPENSIM_WITH_CASADI=$MOCO \
+  -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}"  
+  # -DSIMBODY_EXTRA_CMAKE_ARGS=-DSIMBODY_BUILD_VISUALIZER:BOOL=OFF;
+  # -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE=include-what-you-use 
+# --graphviz=deps.dot -DGRAPHVIZ_CUSTOM_TARGETS=TRUE #
 #  -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
 cmake . -LAH
 cmake --build . --config $DEBUG_TYPE -j$NUM_JOBS
 echo
 
 # Test opensim-core.
-echo "LOG: TESTING OPENSIM-CORE..."
+# echo "LOG: TESTING OPENSIM-CORE..."
 # cd ~/opensim-workspace/opensim-core-build
 # # TODO: Temporary for python to find Simbody libraries.
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/opensim-workspace/opensim-core-dependencies-install/simbody/lib
