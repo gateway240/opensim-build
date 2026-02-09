@@ -6,7 +6,7 @@ set -e
 # Default values for flags.
 DEBUG_TYPE="Release"
 NUM_JOBS=$(nproc)
-MOCO="off"
+MOCO="on"
 CORE_BRANCH="main"
 GENERATOR="Unix Makefiles"
 
@@ -83,6 +83,7 @@ cmake ~/opensim-workspace/opensim-core-source/dependencies \
   \
   -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
   -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
+  -DBUILD_SHARED_LIBS=ON \
   -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
   -DSUPERBUILD_ezc3d=on \
   -DOPENSIM_WITH_CASADI=$MOCO \
