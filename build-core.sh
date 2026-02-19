@@ -77,23 +77,23 @@ echo
 # Build opensim-core dependencies.
 echo "LOG: BUILDING OPENSIM-CORE DEPENDENCIES..."
 
-mkdir -p ~/opensim-workspace/opensim-core-dependencies-build || true
-cd ~/opensim-workspace/opensim-core-dependencies-build
-cmake ~/opensim-workspace/opensim-core-source/dependencies \
-  \
-  -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
-  -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
-  -DBUILD_SHARED_LIBS=ON \
-  -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
-  -DSUPERBUILD_ezc3d=on \
-  -DOPENSIM_WITH_CASADI=$MOCO \
-  -DOPENSIM_PYTHON_STANDALONE=ON 
-   # --graphviz=deps.dot \
-# -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
+# mkdir -p ~/opensim-workspace/opensim-core-dependencies-build || true
+# cd ~/opensim-workspace/opensim-core-dependencies-build
+# cmake ~/opensim-workspace/opensim-core-source/dependencies \
+#   \
+#   -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
+#   -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
+#   -DBUILD_SHARED_LIBS=ON \
+#   -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
+#   -DSUPERBUILD_ezc3d=on \
+#   -DOPENSIM_WITH_CASADI=$MOCO \
+#   -DOPENSIM_PYTHON_STANDALONE=ON 
+#    # --graphviz=deps.dot \
+# # -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
 
-cmake . -LAH
-cmake --build . --config $DEBUG_TYPE -j$NUM_JOBS
-echo
+# cmake . -LAH
+# cmake --build . --config $DEBUG_TYPE -j$NUM_JOBS
+# echo
 
 # Build opensim-core.
 echo "LOG: BUILDING OPENSIM-CORE..."
@@ -105,16 +105,17 @@ cmake ~/opensim-workspace/opensim-core-source \
   \
   -DOPENSIM_DEPENDENCIES_DIR=~/opensim-workspace/opensim-core-dependencies-install/ \
   -DBUILD_JAVA_WRAPPING=off \
-  -DBUILD_PYTHON_WRAPPING=on \
-  -DOPENSIM_PYTHON_STANDALONE=ON \
-  -DBUILD_PYTHON_WHEELS=on \
+  -DBUILD_PYTHON_WRAPPING=off \
+  -DPython3_FIND_STRATEGY=LOCATION \
+  -DOPENSIM_PYTHON_STANDALONE=on \
+  -DBUILD_PYTHON_WHEELS=off \
   -DBUILD_EXAMPLES=off \
-  -DBUILD_TESTING=off \
+  -DBUILD_TESTING=on \
   -DOPENSIM_C3D_PARSER=ezc3d \
   -DCMAKE_INSTALL_PREFIX=~/opensim-core \
   -DOPENSIM_INSTALL_UNIX_FHS=off \
-  -DSWIG_DIR=/usr/bin/swig \
-  -DSWIG_EXECUTABLE=/usr/bin/swig \
+  -DSWIG_DIR=$(which swig) \
+  -DSWIG_EXECUTABLE=$(which swig)\
   -DCMAKE_EXPORT_COMPILE_COMMANDS=on \
   -DOPENSIM_WITH_CASADI=$MOCO \
   -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}"  
