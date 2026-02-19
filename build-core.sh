@@ -66,34 +66,34 @@ echo "OS="$OS_NAME
 echo ""
 
 # Get opensim-core.
-echo "LOG: CLONING OPENSIM-CORE..."
+# echo "LOG: CLONING OPENSIM-CORE..."
 # git -C ~/opensim-workspace/opensim-core-source pull ||
 #  git clone https://github.com/opensim-org/opensim-core.git ~/opensim-workspace/opensim-core-source
 # cd ~/opensim-workspace/opensim-core-source
 # Ignore the git checkout error if you can't check something out
 # git checkout $CORE_BRANCH || true
-echo
+# echo
 
 # Build opensim-core dependencies.
 echo "LOG: BUILDING OPENSIM-CORE DEPENDENCIES..."
 
-# mkdir -p ~/opensim-workspace/opensim-core-dependencies-build || true
-# cd ~/opensim-workspace/opensim-core-dependencies-build
-# cmake ~/opensim-workspace/opensim-core-source/dependencies \
-#   \
-#   -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
-#   -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
-#   -DBUILD_SHARED_LIBS=ON \
-#   -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
-#   -DSUPERBUILD_ezc3d=on \
-#   -DOPENSIM_WITH_CASADI=$MOCO \
-#   -DOPENSIM_PYTHON_STANDALONE=ON 
-#    # --graphviz=deps.dot \
-# # -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
+mkdir -p ~/opensim-workspace/opensim-core-dependencies-build || true
+cd ~/opensim-workspace/opensim-core-dependencies-build
+cmake ~/opensim-workspace/opensim-core-source/dependencies \
+  \
+  -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
+  -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
+  -DBUILD_SHARED_LIBS=ON \
+  -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
+  -DSUPERBUILD_ezc3d=on \
+  -DOPENSIM_WITH_CASADI=$MOCO \
+  -DOPENSIM_PYTHON_STANDALONE=ON 
+   # --graphviz=deps.dot \
+# -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
 
-# cmake . -LAH
-# cmake --build . --config $DEBUG_TYPE -j$NUM_JOBS
-# echo
+cmake . -LAH
+cmake --build . --config $DEBUG_TYPE -j$NUM_JOBS
+echo
 
 # Build opensim-core.
 echo "LOG: BUILDING OPENSIM-CORE..."
