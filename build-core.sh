@@ -105,10 +105,10 @@ cmake ~/opensim-workspace/opensim-core-source \
   \
   -DOPENSIM_DEPENDENCIES_DIR=~/opensim-workspace/opensim-core-dependencies-install/ \
   -DBUILD_JAVA_WRAPPING=off \
-  -DBUILD_PYTHON_WRAPPING=off \
+  -DBUILD_PYTHON_WRAPPING=on \
   -DPython3_FIND_STRATEGY=LOCATION \
   -DOPENSIM_PYTHON_STANDALONE=on \
-  -DBUILD_PYTHON_WHEELS=off \
+  -DBUILD_PYTHON_WHEELS=on \
   -DBUILD_EXAMPLES=off \
   -DBUILD_TESTING=on \
   -DOPENSIM_C3D_PARSER=ezc3d \
