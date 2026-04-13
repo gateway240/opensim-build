@@ -104,7 +104,7 @@ cmake ~/opensim-workspace/opensim-core-source \
   -G"$GENERATOR" \
   \
   -DOPENSIM_DEPENDENCIES_DIR=~/opensim-workspace/opensim-core-dependencies-install/ \
-  -DBUILD_JAVA_WRAPPING=off \
+  -DBUILD_JAVA_WRAPPING=on \
   -DBUILD_PYTHON_WRAPPING=on \
   -DPython3_FIND_STRATEGY=LOCATION \
   -DOPENSIM_PYTHON_STANDALONE=on \

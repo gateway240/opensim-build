@@ -18,6 +18,18 @@ cmake . --preset=default -DSIMBODY_BUILD_SHARED_LIBS=off
 cmake --build --preset=default -DBUILD_TESTING=true -DCMAKE_EXPORT_COMPILE_COMMANDS=on -j22
 
 ## Arch Linux Platform Dependencies
+1. Install platform specific dependencies from pacman
+```
+sudo pacman -S base-devel cmake autoconf pkg-config automake blas lapack freeglut libxi libxmu doxygen python3 python-numpy git openssl pcre pcre2 libtool gcc-fortran ninja patchelf byacc bison glu jdk17-openjdk swig
+```
+
+2. Install Netbeans 17
+```bash 
+wget -nc -q --show-progress  https://archive.apache.org/dist/netbeans/netbeans/17/netbeans-17-bin.zip
+unzip -q netbeans-17-bin.zip -d $HOME
+```
+
+## Arch Linux Platform Dependencies - OLD
 
 1. Install platform specific dependencies from pacman
 ```
