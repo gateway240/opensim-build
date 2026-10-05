@@ -83,6 +83,7 @@ cmake ~/opensim-workspace/opensim-core-source/dependencies \
   \
   -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" \
   -DGRAPHVIZ_CUSTOM_TARGETS=TRUE \
+  -DPython_EXECUTABLE=$(which python) \
   -DBUILD_SHARED_LIBS=ON \
   -DCMAKE_INSTALL_PREFIX=~/opensim-workspace/opensim-core-dependencies-install/ \
   -DSUPERBUILD_ezc3d=on \
@@ -107,6 +108,7 @@ cmake ~/opensim-workspace/opensim-core-source \
   -DBUILD_JAVA_WRAPPING=on \
   -DBUILD_PYTHON_WRAPPING=on \
   -DPython3_FIND_STRATEGY=LOCATION \
+  -DPython_EXECUTABLE=$(which python) \
   -DOPENSIM_PYTHON_STANDALONE=on \
   -DBUILD_PYTHON_WHEELS=on \
   -DBUILD_EXAMPLES=off \
@@ -118,13 +120,14 @@ cmake ~/opensim-workspace/opensim-core-source \
   -DSWIG_EXECUTABLE=$(which swig)\
   -DCMAKE_EXPORT_COMPILE_COMMANDS=on \
   -DOPENSIM_WITH_CASADI=$MOCO \
-  -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}"  
+  -DCMAKE_CXX_FLAGS="-march=native ${CMAKE_CXX_FLAGS}" 
   # -DSIMBODY_EXTRA_CMAKE_ARGS=-DSIMBODY_BUILD_VISUALIZER:BOOL=OFF;
   # -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE=include-what-you-use 
 # --graphviz=deps.dot -DGRAPHVIZ_CUSTOM_TARGETS=TRUE #
 #  -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg
 cmake . -LAH
-cmake --build . --config $DEBUG_TYPE -j$NUM_JOBS
+cmake --build . -j$NUM_JOBS
+# ctest --parallel $NUM_JOBS --output-on-failure 
 echo
 
 # Test opensim-core.
