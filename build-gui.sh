@@ -39,7 +39,7 @@ mkdir -p "$NBM_DIR"
 
 # Download the NBM file pinned to version v4.6.0
 wget -O "$NBM_DIR/org-opensim-javabrowser.nbm" \
-        "https://github.com/opensim-org/opensim-visualizer/releases/download/v4.6.0/org-opensim-javabrowser.nbm"
+        "https://github.com/opensim-org/opensim-visualizer/releases/downloadk/v4.6.1.dev/org-opensim-javabrowser.nbm"
 
 # Extract the NBM (nbm is a zip)
 mkdir -p "$EXTRACT_DIR"

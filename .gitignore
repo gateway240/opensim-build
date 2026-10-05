@@ -1,3 +1,6 @@
+*.dat
+localeVariants
+*.txt
 # Prerequisites
 *.d
 
